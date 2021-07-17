@@ -4,9 +4,11 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        user: async(parent, args, context) => {
+        me: async(parent, args, context) => {
             if (context.user) {
-                const user = await User.findById(context.user._id);
+                const userData = await User.findOne({ })
+                    .select('-__v -password')
+                    .populate('books');
 
             return user;
             }
@@ -64,3 +66,5 @@ const resolvers = {
           }
     }
 }
+
+module.exports = resolvers;

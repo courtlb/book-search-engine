@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from 'graphql-tag';
 
-export const LOGIN_USER = gql`
+export const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
@@ -25,49 +25,58 @@ export const ADD_USER = gql`
       token
       user {
         _id
+        username
+        email
+        bookCount
+        savedBooks {
+            authors
+            bookId
+            image
+            link
+            title
+            description
+        }
       }
     }
   }
 `;
 
 export const SAVE_BOOK = gql`
-mutation saveBook(
-    $authors: [String]!
-    $description: String!
-    $title: String!
-    $bookId: String!
-    $image: String!
-    $link: String!
-  ) {
-    addBook(
-        authors: $authors
-        description: $description
-        title: $title
-        bookId: $bookId
-        image: $image
-        link: $link
-    )
+mutation saveBook($input: savedBook!) {
+    saveBook(input: $input) {
+        _id
+        username
+        email
+        bookCount
+        savedBooks {
+            # _id
+            bookId
+            authors
+            image
+            link
+            title
+            description
+        }
     }
   }
 `;
 
 export const REMOVE_BOOK = gql`
-mutation removeBook(
-    $authors: [String]!
-    $description: String!
-    $title: String!
-    $bookId: String!
-    $image: String!
-    $link: String!
-  ) {
-    addBook(
-        authors: $authors
-        description: $description
-        title: $title
-        bookId: $bookId
-        image: $image
-        link: $link
-    )
+mutation removeBook($bookId: ID!) {
+    removeBook(bookID:$bookId) {
+        _id
+        username
+        email
+        bookCount
+        savedBooks {
+            # _id
+            bookId
+            authors
+            image
+            link
+            title
+            description
+        }
     }
   }
 `;
