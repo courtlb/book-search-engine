@@ -16,8 +16,6 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
-    "if-env": "^1.0.4",
-    "apollo-server-express": "^2.25.2"
-
-  }
+    "if-env": "^1.0.4"
+    }
 }
